@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd">
+	<flow name="BatchFlow" doc:id="951119bf-050c-4753-88e8-bc4ade9e6b89" >
+		<http:listener doc:name="Listener" doc:id="4cd1cee7-0749-47e9-ae5c-6b5fb59df1ad" config-ref="HTTP_Listener_config" path="/Batch" />
+		<set-payload value="#[[1,2,3,4,5]]" doc:name="Payload [1,2,3,4,5]" doc:id="06816b08-d450-4090-9c97-9c00b21ee527" />
+		<set-variable value="Test" doc:name="Variable VariableOne:Test" doc:id="285a18e9-b004-4928-a8eb-228793a26ea6" variableName="VariableOne" />
+		<batch:job jobName="BatchBatch_Job" doc:id="3eb2a262-a727-48e6-a3c5-14548cc7aeac" >
+			<batch:process-records >
+				<batch:step name="Batch_Step" doc:id="c103499e-5d65-4388-ba4d-cb60c505d523" />
+			</batch:process-records>
+		</batch:job>
+		<logger level="INFO" doc:name="Copy_of_Logger" doc:id="8ec53b84-07c0-4ceb-ba81-28dd4a6dd912" message="Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]." />
+	</flow>
+</mule>
