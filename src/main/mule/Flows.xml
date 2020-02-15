@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd"></mule>
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="FlowsFlow" doc:id="460275eb-bc1f-4a74-a877-8038d2601d89" >
+		<http:listener doc:name="Listener" doc:id="62f3ecce-1547-44e0-8472-df158e189e93" config-ref="HTTP_Listener_Endpoint" path="/FlowToSubFlow"/>
+		<set-payload value="#[[1,2,3,4,5]]" doc:name="[1,2,3,4,5]" doc:id="7bb4ebed-db1f-48a0-abfb-12d6bcd7b834" />
+		<set-variable value="Test" doc:name="VariableOne: Test" doc:id="eff40734-beee-4aab-a9b8-51740bbd1984" variableName="VariableOne"/>
+		<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="ea4aa09e-55f3-46c6-b5f2-84d206feae38" message="Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]."/>
+		<flow-ref doc:name="CallToSubFlowOne" doc:id="4917c223-530b-4a9e-9bb3-85e7ade51db7" name="SubFlowOne"/>
+		<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="9c76ed10-25a8-42a6-9a7c-d8dbbc366cc2" message="Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]."/>
+		<flow-ref doc:name="CallToFlowTwo" doc:id="435932dd-a030-4f5c-972c-5e0be1c8c360" name="FlowTwo"/>
+		<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="2c0c8ec8-6e6f-4fcb-b116-412681cf920e" message="Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]."/>
+	</flow>
+	<sub-flow name="SubFlowOne" doc:id="643016a4-b76e-4d1d-bf25-7f5c80acd897" >
+		<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="e709a82c-39d4-4303-be27-60e19d694f07" message="Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]."/>
+		<set-payload value="#[[5,4,3,2,1]]" doc:name="SubFlowPayload [5,4,3,2,1]" doc:id="ee7790ee-cbda-467d-8db2-7943cf0fcc84" />
+		<set-variable value="TestCHANGEDBYSUBFLOW" doc:name="VariableOne: Test" doc:id="97b0cb77-d780-4aea-bcb1-b6995c1437f9" variableName="VariableOne"/>
+		<set-variable value="Test2FROMSUBFLOW" doc:name="VariableTwo: Test2FROMSUBFLOW" doc:id="a673fd3c-3ce8-43fc-b27b-5cc16c7b5b5c" variableName="VariableTwo"/>
+		<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="6b84caeb-9538-4647-833d-c89884dbf859" message="Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]."/>
+	</sub-flow>
+	<flow name="FlowTwo" doc:id="e181d00b-620e-4206-aac3-beab1e4e2ff8" >
+		<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="c92e1bc5-543d-4262-a2fa-485653a6fb47" message="Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]."/>
+		<set-payload value="#[[10,9,8,7,6,5,4,3,2,1]]" doc:name="FlowTwoPayload" doc:id="9864882c-7b36-4b62-be44-f3035c1b7612" />
+		<set-variable value="Test2FromFlowTwo" doc:name="VariableTwo: Test2FromFlowTwo" doc:id="09679766-f12a-4bd0-8140-874e5e84513b" variableName="VariableTwo"/>
+		<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="7825e510-2bab-4bd7-980d-bdde765ace59" message="Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]."/>
+	</flow>
+</mule>

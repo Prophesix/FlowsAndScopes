@@ -5,11 +5,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
 	<flow name="ForEachFlow_BatchSizes" doc:id="52eb9c61-c3e2-439e-9083-4e6a201de203" >
-		<http:listener doc:name="Listener" doc:id="c25063e0-0184-4eaf-a910-7d9e303cb210" config-ref="HTTP_Listener_config" path="/ForEach"/>
+		<http:listener doc:name="Listener" doc:id="c25063e0-0184-4eaf-a910-7d9e303cb210" config-ref="HTTP_Listener_Endpoint"" path="/ForEach"/>
 		<set-payload value="#[[1,2,3,4,5]]" doc:name="Set Payload [1,2,3,4,5]" doc:id="e419bea6-878b-4d7f-bfb8-be40ee9480c8" />
 		<set-variable value="Test" doc:name="Set Variable VariableOne:Test" doc:id="cf8cd859-bfcc-4579-8f70-9de6af935ebe" variableName="VariableOne"/>
 		<foreach doc:name="For Each" doc:id="0dd56187-2fc7-4f32-b661-70446b0fafa4" batchSize="3">
-			<set-payload value="#[payload ++ 1]" doc:name="Set Payload ++ 1" doc:id="c4a29c74-ab60-44db-8cc7-6c5695022a83" />
+			<set-payload value="#[payload + 1]" doc:name="Set Payload ++ 1" doc:id="c4a29c74-ab60-44db-8cc7-6c5695022a83" />
 			<set-variable value="Test2" doc:name="Set Variable VariableTwo:Test2" doc:id="2943d0d7-7900-4ea2-bc58-9773bb058b99" variableName="VariableTwo"/>
 		</foreach>
 		<logger level="INFO" doc:name="Logger" doc:id="8979ba51-3181-4831-bc85-00d9275aaf17" message="Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]."/>
