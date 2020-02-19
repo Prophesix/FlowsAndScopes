@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd"></mule>
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="HTTPRequestScopesFlow" doc:id="8eca180d-76a3-4305-b990-fefb2e8ee68a" >
+		<http:listener doc:name="Listener" doc:id="03d6a151-04af-4bf5-9c44-460fce5400e7" config-ref="HTTP_Listener_Endpoint" path="/HTTPScopes"/>
+		<set-payload value="#[[1,2,3,4,5]]" doc:name="Payload [1,2,3,4,5]" doc:id="3daadd7c-2718-4c17-b61c-43bb1a2d0bc4" />
+		<set-variable value="Test" doc:name="VariableOne:Test" doc:id="07c5acaf-f113-446b-93f9-6516b2ffe1dd" variableName="VariableOne"/>
+		<logger level="INFO" doc:name="Payload, VariableOne Values" doc:id="5cd94d7d-64b8-48f6-913a-e4e9f5a5c150" message="Payload: #[payload] VariableOne:#[vars.VariableOne]"/>
+		<http:request method="GET" doc:name="Internal Request" doc:id="29eee96c-d401-4872-a41e-b3ceef1700df" config-ref="Internal_HTTP_Request_configuration" path="/Internal"/>
+		<logger level="INFO" doc:name="Payload, VariableOne Values" doc:id="f5fd1f25-a495-4f5f-bbf4-021a9bcf34f0" message="Payload: #[payload] VariableOne:#[vars.VariableOne]"/>
+	</flow>
+	<flow name="HTTPRequestScopesFlow1" doc:id="60c24290-39e9-4c5e-a663-b1e74c299dee" >
+		<http:listener doc:name="Listener" doc:id="a2d0a8da-bcf5-48b9-825f-0c9c8ff4c3bc" config-ref="HTTP_Listener_Endpoint" path="/Internal" allowedMethods="GET"/>
+		<logger level="INFO" doc:name="Payload, VariableOne Values" doc:id="71f14112-2188-4f10-8574-d28ced38bfd5" message="Payload: #[payload] VariableOne:#[vars.VariableOne]"/>
+		<set-payload value="#[[1,2,3,4,5]]" doc:name="Payload [1,2,3,4,5]" doc:id="cbc296a3-e1fd-45dc-88d3-bffe34ed7be4" />
+		<set-variable value="Test" doc:name="VariableOne:Test" doc:id="14ef6fb8-4b85-40ae-93ca-e8bd784fb097" variableName="VariableOne"/>
+		<logger level="INFO" doc:name="Payload, VariableOne Values" doc:id="ffd40540-1617-4571-907c-b72a92281fd8" message="Payload: #[payload] VariableOne:#[vars.VariableOne]"/>
+	</flow>
+</mule>

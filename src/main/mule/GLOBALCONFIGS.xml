@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+<mule xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd">
 	<http:listener-config name="HTTP_Listener_Endpoint" doc:name="HTTP Listener config" doc:id="6f520396-2f5c-4011-91b8-3a3bd3333d07" basePath="/*" >
 		<http:listener-connection host="0.0.0.0" port="8081" />
 	</http:listener-config>
+	<vm:config name="VM_Config" doc:name="VM Config" doc:id="b4952af5-4fa2-4b21-85b8-164f0cad030d">
+		<vm:connection />
+		<vm:queues >
+			<vm:queue queueName="QueueOneTrans" />
+			<vm:queue queueName="QueueTwoPersistant" queueType="PERSISTENT" />
+		</vm:queues>
+	</vm:config>
+	<http:request-config name="Internal_HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="49822184-fb6b-46f2-ab57-2ae8a681e40d" basePath="/Internal" >
+		<http:request-connection host="localhost" port="8081" />
+	</http:request-config>
 </mule>
