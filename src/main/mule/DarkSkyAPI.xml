@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="DarkSkyAPICO" doc:id="8d0645a3-b505-4f38-8c1b-6f74861ead09" >
+		<http:listener doc:name="Listener" doc:id="37290c05-0abd-402a-8369-6aff156865d3" config-ref="HTTP_Listener_Endpoint" path="/DarkSkyCO" allowedMethods="GET"/>
+		<logger level="INFO" doc:name="Start Get Current CO Weather" doc:id="c768fb06-3d5a-4090-a9a9-50423051cfef" message="DarkSkyAPI Starting: GET Current CO Weather..."/>
+		<ee:transform doc:name="SetPayloadForCO" doc:id="8602825a-8956-4cf6-8224-ab77c8b34fa1" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<http:request method="GET" doc:name="Request" doc:id="49d7ed69-c9fe-464a-b25a-d464ce5fb7f2" config-ref="DARKSKYAPI_Request_configuration" path="${longLat.DenverCo}"/>
+		<ee:transform doc:name="Java to JSON" doc:id="e9b1c826-8346-4056-a9b7-1c6499d0a4d4" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End Get Current CO Weather" doc:id="a4466d87-018b-4cea-9962-cf36696f2109" message="DarkSkyAPI End: GET Current CO Weather..."/>
+	</flow>
+	<flow name="DarkSkyAPINC" doc:id="71bf6966-7b62-4db5-a0ee-3a65b7709e93" >
+		<http:listener doc:name="Listener" doc:id="ec657a3b-6ccb-4c14-bb10-4572c93df0a4" config-ref="HTTP_Listener_Endpoint" path="/DarkSkyNC" allowedMethods="GET"/>
+		<logger level="INFO" doc:name="Start Get Current NC Weather" doc:id="75ff37fc-f9e1-4139-8991-a0db4512cca7" message="DarkSkyAPI Starting: GET Current NC Weather..."/>
+		<ee:transform doc:name="SetPayloadForNC" doc:id="9f098d11-9277-4726-9126-3cea7bee3a89" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<http:request method="GET" doc:name="Request" doc:id="60deb15c-4b0b-431c-bdc7-07416064fcfb" path="${longLat.DurhamNC}" config-ref="DARKSKYAPI_Request_configuration"/>
+		<ee:transform doc:name="Java to JSON" doc:id="fe7a435f-cad0-4a6b-843a-65e912939175" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End Get Current NC Weather" doc:id="ab2fa97c-4bf5-46d9-a39a-9fee4bfe4be5" message="DarkSkyAPI End: GET Current NC Weather..."/>
+	</flow>
+	<flow name="DarkSkyAPILA" doc:id="09649ba7-ea2d-4cca-b4c5-577d7ea45472" >
+		<http:listener doc:name="Listener" doc:id="4faecf36-8804-48ba-9100-864a4b09e07a" config-ref="HTTP_Listener_Endpoint" path="/DarkSkyLA" allowedMethods="GET" />
+		<logger level="INFO" doc:name="Start Get Current LA Weather" doc:id="d265d06b-8e62-4fb7-bbb1-e5146d77f35e" message="DarkSkyAPI Starting: GET Current LA Weather..." />
+		<ee:transform doc:name="SetPayloadForLA" doc:id="a71748eb-f09e-4043-8be4-b04307252f23" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<http:request method="GET" doc:name="Request" doc:id="de29acbd-4c5d-49c0-9bc1-d05e4c7b8410" path="${longLat.LACA}" config-ref="DARKSKYAPI_Request_configuration"/>
+		<ee:transform doc:name="Java to JSON" doc:id="8e1764a2-1224-4f16-af55-be72ca56a911" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Get Current CO Weather" doc:id="f4cacb35-f6d6-4b79-9e70-8d3458101444" message="DarkSkyAPI End: GET Current LA Weather..."/>
+	</flow>
+</mule>

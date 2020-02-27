@@ -18,4 +18,8 @@ http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/cu
 	<http:request-config name="Internal_HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="49822184-fb6b-46f2-ab57-2ae8a681e40d" basePath="/Internal" >
 		<http:request-connection host="localhost" port="8081" />
 	</http:request-config>
+	<http:request-config name="DARKSKYAPI_Request_configuration" doc:name="HTTP Request configuration" doc:id="81f40983-d54c-4f96-9f85-b3cba8689305" basePath="/forecast/ed21a455e1e80b8936a6867b2219b78f/" >
+		<http:request-connection host="https://api.darksky.net" />
+	</http:request-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="5dd8dc16-117f-4162-a9f4-8d6428452a47" file="local.properties" />
 </mule>
