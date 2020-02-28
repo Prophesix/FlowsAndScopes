@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<flow name="ForEachFlow" doc:id="52eb9c61-c3e2-439e-9083-4e6a201de203" >
-		<set-payload value="#[[1,2,3,4,5]]" doc:name="Set Payload [1,2,3,4,5]" doc:id="e419bea6-878b-4d7f-bfb8-be40ee9480c8" />
+		<http:listener doc:name="Listener" doc:id="00e85997-d912-4731-b37e-97d99175d0ce" config-ref="DEFAULT_HTTP_Listener_Endpoint" path="/ForEach"/>
+		<logger level="INFO" doc:name="Logger" doc:id="a39a9d41-4ab8-48bc-aa18-1dba77ac2e81" message="STARTING FOR EACH.........."/>
+		<set-payload value="#[%dw 2.0
+output application/json
+---
+[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]]" doc:name="Set Payload [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" doc:id="e419bea6-878b-4d7f-bfb8-be40ee9480c8" />
 		<set-variable value="Test" doc:name="Set Variable VariableOne:Test" doc:id="cf8cd859-bfcc-4579-8f70-9de6af935ebe" variableName="VariableOne"/>
+		<logger level="INFO" doc:name="Logger" doc:id="ccc033f1-eb41-4f92-a73d-7aed209b6640" message="BEFORE FOREACH: Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]." />
 		<foreach doc:name="For Each" doc:id="0dd56187-2fc7-4f32-b661-70446b0fafa4" >
 			<set-payload value="#[payload ++ 1]" doc:name="Set Payload ++ 1" doc:id="c4a29c74-ab60-44db-8cc7-6c5695022a83" />
 			<set-variable value="Test2" doc:name="Set Variable VariableTwo:Test2" doc:id="2943d0d7-7900-4ea2-bc58-9773bb058b99" variableName="VariableTwo"/>
+			<logger level="INFO" doc:name="Logger" doc:id="fc5ecc6d-08c6-4522-89c3-60ab7de39804" message="END OF FOREACH: Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]." />
 		</foreach>
-		<logger level="INFO" doc:name="Logger" doc:id="8979ba51-3181-4831-bc85-00d9275aaf17" message="Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]."/>
+		<logger level="INFO" doc:name="Logger" doc:id="8979ba51-3181-4831-bc85-00d9275aaf17" message="END OF FLOW: Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]."/>
 	</flow>
 </mule>

@@ -6,31 +6,29 @@
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd">
 	<flow name="VMScopesFlowPerst" doc:id="5e9151bd-7c5e-42ae-94e9-115320238551" >
-		<http:listener doc:name="Listener" doc:id="08c1350c-f2e7-45d0-a9f8-0abcd38b6619" config-ref="HTTP_Listener_Endpoint" path="/VMPublishPerst"/>
+		<http:listener doc:name="Listener" doc:id="08c1350c-f2e7-45d0-a9f8-0abcd38b6619" config-ref="DEFAULT_HTTP_Listener_Endpoint" path="/VMPublishPerst"/>
+		<logger level="INFO" doc:name="Logger" doc:id="57ff85e4-8deb-42ca-a97d-794ac657295d" message="STARTING PUBLISH PERSIST FLOW..............."/>
 		<set-payload value="#[[1,2,3,4,5]]" doc:name="Payload [1,2,3,4,5]" doc:id="2fc28ca8-a030-43b1-9164-0df49314a887" />
 		<set-variable value="Test" doc:name="VariableOne:Test" doc:id="0bfafca1-ce0d-4175-ac88-867063408596" variableName="VariableOne"/>
-		<logger level="INFO" doc:name="Payload, VariableOne Values" doc:id="1480db3d-5ecf-496d-ae37-fc804aba2b02" message="Payload: #[payload] VariableOne:#[vars.VariableOne]"/>
+		<logger level="INFO" doc:name="Payload, VariableOne Values" doc:id="1480db3d-5ecf-496d-ae37-fc804aba2b02" message="BEFORE PUBLISH OPERATION: Payload: #[payload] VariableOne:#[vars.VariableOne]"/>
 		<vm:publish doc:name="Publish" doc:id="d363c8e9-a5af-48ca-9c5d-a914f72afb5f" config-ref="VM_Config" queueName="QueueOneTrans"/>
-		<logger level="INFO" doc:name="Payload, VariableOne Values" doc:id="4909dd70-a85d-41f0-8b50-5de0935812f5" message="Payload: #[payload] VariableOne:#[vars.VariableOne]"/>
+		<logger level="INFO" doc:name="Payload, VariableOne Values" doc:id="4909dd70-a85d-41f0-8b50-5de0935812f5" message="END PUBLISH OPERATION: Payload: #[payload] VariableOne:#[vars.VariableOne]"/>
 	</flow>
 	<flow name="VMScopesFlow2Perst" doc:id="fc1b2477-9fc0-4a17-9a69-d9c2e7b06009" >
-		<http:listener doc:name="Listener" doc:id="7945f533-af97-4870-9ad1-eb8f6a192bb6" config-ref="HTTP_Listener_Endpoint" path="/VMPublishConsumePerst"/>
+		<http:listener doc:name="Listener" doc:id="7945f533-af97-4870-9ad1-eb8f6a192bb6" config-ref="DEFAULT_HTTP_Listener_Endpoint" path="/VMPublishConsumePerst"/>
+		<logger level="INFO" doc:name="Logger" doc:id="05f12b6d-d180-4826-9662-49ac40d4c0bf" message="STARTING PUBLISH/CONSUME PERSIST FLOW..............."/>
 		<set-payload value="#[[1,2,3,4,5]]" doc:name="Payload [1,2,3,4,5]" doc:id="fda8dee6-8cf6-453c-9f11-b4b45ea82901" />
 		<set-variable value="Test" doc:name="VariableOne:Test" doc:id="d2b72146-a3e3-4bc2-b95d-d3ce97e48cbb" variableName="VariableOne"/>
-		<logger level="INFO" doc:name="Payload, VariableOne Values" doc:id="9beffd3d-a849-4c92-a494-8751c5ba23a3" message="Payload: #[payload] VariableOne:#[vars.VariableOne]"/>
+		<logger level="INFO" doc:name="Payload, VariableOne Values" doc:id="9beffd3d-a849-4c92-a494-8751c5ba23a3" message="BEFORE PUBLISH/CONSUME OPERATION: Payload: #[payload] VariableOne:#[vars.VariableOne]"/>
 		<vm:publish-consume doc:name="Publish consume" doc:id="a0a0825d-75c7-4d88-aa5a-bd749cbe4b89" config-ref="VM_Config" queueName="QueueOneTrans"/>
-		<logger level="INFO" doc:name="Payload, VariableOne Values" doc:id="b56d3012-3c73-47f2-ae23-502c21932309" message="Payload: #[payload] VariableOne:#[vars.VariableOne]"/>
+		<logger level="INFO" doc:name="Payload, VariableOne Values" doc:id="b56d3012-3c73-47f2-ae23-502c21932309" message="END PUBLISH/CONSUME OPERATION: Payload: #[payload] VariableOne:#[vars.VariableOne]"/>
 	</flow>
 	<flow name="VMScopesFlow1Perst" doc:id="6d657001-5d35-43fb-80d4-1e565bbf814d" >
-		<scheduler doc:name="Scheduler" doc:id="22d56419-c6a9-4207-b583-1867f22f975f" >
-			<scheduling-strategy >
-				<fixed-frequency frequency="60" timeUnit="MINUTES"/>
-			</scheduling-strategy>
-		</scheduler>
+		<logger level="INFO" doc:name="Logger" doc:id="61e41476-9a4e-4434-8637-74c2d094be94" message="STARTING CONSUME PERSIST FLOW..............."/>
 		<set-payload value="#[[1,2,3,4,5]]" doc:name="Payload [1,2,3,4,5]" doc:id="3ba22945-1775-464d-8a0f-b56451c6d16e" />
 		<set-variable value="Test" doc:name="VariableOne:Test" doc:id="688f4ecc-7b8c-4ddd-9993-cce47347a28d" variableName="VariableOne"/>
-		<logger level="INFO" doc:name="Payload, VariableOne Values" doc:id="3eeb7989-f24e-4e2d-a4a3-e95880ff01ce" message="Payload: #[payload] VariableOne:#[vars.VariableOne]"/>
+		<logger level="INFO" doc:name="Payload, VariableOne Values" doc:id="3eeb7989-f24e-4e2d-a4a3-e95880ff01ce" message="BEFORE CONSUME OPERATION: Payload: #[payload] VariableOne:#[vars.VariableOne]"/>
 		<vm:consume doc:name="Consume" doc:id="57947d9f-8dd9-4762-9b7c-85be29a463a3" config-ref="VM_Config" queueName="QueueOneTrans"/>
-		<logger level="INFO" doc:name="Payload, VariableOne Values" doc:id="98fe4607-0c68-4521-9d37-7fb8fb860d02" message="Payload: #[payload] VariableOne:#[vars.VariableOne]"/>
+		<logger level="INFO" doc:name="Payload, VariableOne Values" doc:id="98fe4607-0c68-4521-9d37-7fb8fb860d02" message="END CONSUME OPERATION: Payload: #[payload] VariableOne:#[vars.VariableOne]"/>
 	</flow>
 </mule>

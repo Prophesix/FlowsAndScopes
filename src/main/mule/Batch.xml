@@ -1,48 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns:http="http://www.mulesoft.org/schema/mule/http"
-	xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:batch="http://www.mulesoft.org/schema/mule/batch"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
-http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd">
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<flow name="BatchFlow" doc:id="951119bf-050c-4753-88e8-bc4ade9e6b89" >
-		<http:listener doc:name="Listener" doc:id="4cd1cee7-0749-47e9-ae5c-6b5fb59df1ad" config-ref="HTTP_Listener_Endpoint" path="/Batch" />
+		<http:listener doc:name="Listener" doc:id="4cd1cee7-0749-47e9-ae5c-6b5fb59df1ad" config-ref="DEFAULT_HTTP_Listener_Endpoint" path="/Batch" />
+		<logger level="INFO" doc:name="Logger" doc:id="82277a92-fb60-46fb-b642-162884e01a7f" message="STARTING BATCH FLOW............"/>
 		<set-payload value="#[[1,2,3,4,5]]" doc:name="Payload [1,2,3,4,5]" doc:id="06816b08-d450-4090-9c97-9c00b21ee527" />
 		<set-variable value="Test" doc:name="VariableOne:Test" doc:id="285a18e9-b004-4928-a8eb-228793a26ea6" variableName="VariableOne" />
-		<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="05ad4ceb-26ec-41e6-ad0e-6bbc9eb0ae4b" message="Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]."/>
+		<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="05ad4ceb-26ec-41e6-ad0e-6bbc9eb0ae4b" message="BEFORE BATCH: Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]."/>
 		<batch:job jobName="BatchBatch_Job" doc:id="3eb2a262-a727-48e6-a3c5-14548cc7aeac" >
 			<batch:process-records >
 				<batch:step name="Batch_Step" doc:id="c103499e-5d65-4388-ba4d-cb60c505d523" >
-					<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="3520680d-2e83-470e-b41d-c0639a3e7070" message="Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]."/>
+					<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="3520680d-2e83-470e-b41d-c0639a3e7070" message="BATCH STEP ONE: Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]."/>
 					<set-payload value="#[payload + 1]" doc:name="Payload + 1" doc:id="79c994d0-650a-4c95-b201-f6ecfe66a56e" />
 					<set-variable value="Test2" doc:name="VariableTwo: Test2" doc:id="65550090-4354-4001-9aa2-652f5f5e2cc7" variableName="VariableTwo"/>
-					<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="a6c33d40-543b-4539-b888-de6e6c82a0c8" message="Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]."/>
+					<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="a6c33d40-543b-4539-b888-de6e6c82a0c8" message="LAST BATCH STEP: Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]."/>
 				</batch:step>
 			</batch:process-records>
 			<batch:on-complete >
-				<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="a34febe9-a80b-462c-a6c1-18e8b1794f62" message="Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]."/>
+				<ee:transform doc:name="Transform Message" doc:id="6a872ca2-863f-43bb-ae99-c884d1ad07c2" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="a34febe9-a80b-462c-a6c1-18e8b1794f62" message="ON COMPLETE: Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]."/>
 			</batch:on-complete>
 		</batch:job>
-		<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="8ec53b84-07c0-4ceb-ba81-28dd4a6dd912" message="Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]." />
+		<ee:transform doc:name="Transform Message" doc:id="bc07d6cc-c83c-457f-a5d4-3c5f8949bd73" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="8ec53b84-07c0-4ceb-ba81-28dd4a6dd912" message="END OF BATCH FLOW: Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]." />
 	</flow>
 	<flow name="BatchFlowWithFilter" doc:id="3001e772-2481-4f20-acf4-e4f6ecdcb9bd" >
-		<http:listener doc:name="Listener" doc:id="06c3a28e-98ff-4641-b19d-b286348c29ee" config-ref="HTTP_Listener_Endpoint" path="/BatchFilter" />
+		<http:listener doc:name="Listener" doc:id="06c3a28e-98ff-4641-b19d-b286348c29ee" config-ref="DEFAULT_HTTP_Listener_Endpoint" path="/BatchFilter" />
+		<logger level="INFO" doc:name="Logger" doc:id="0d46d462-22d8-48e2-a046-4f744c2ad4a8" message="STARTING BATCH WITH FILTER FLOW....................."/>
 		<set-payload value="#[[1,2,3,4,5]]" doc:name="Payload [1,2,3,4,5]" doc:id="fd2a80d6-d6d0-430b-a4a1-dd971ceb7f9c" />
 		<set-variable value="Test" doc:name="VariableOne:Test" doc:id="07aa2024-69d7-4972-9014-b221f963f06f" variableName="VariableOne" />
-		<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="5be5669b-a1ae-4235-a153-b32d594f8d65" message="Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]." />
+		<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="5be5669b-a1ae-4235-a153-b32d594f8d65" message="BEFORE BATCH WITH FILTER: Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]." />
 		<batch:job jobName="BatchBatch_Job2" doc:id="f0710ada-604d-46d1-ae60-d1390d716e42" >
 			<batch:process-records >
-				<batch:step name="PayloadMOD2Filter" doc:id="2e437679-b39f-4ca9-b05a-712d7d9449c1" acceptExpression="#[payload / 2]">
-					<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="a59c3eeb-f1f5-4d33-9500-143d275b890c" message="Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]." />
+				<batch:step name="PayloadMOD2Filter" doc:id="2e437679-b39f-4ca9-b05a-712d7d9449c1" acceptExpression="#[(payload mod 2) != 0]">
+					<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="a59c3eeb-f1f5-4d33-9500-143d275b890c" message="BATCH WITH FILTER STEP ONE: Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]." />
 					<set-payload value="#[payload + 1]" doc:name="Payload + 1" doc:id="e36d8192-cad9-4eb9-a261-cc6e3b39eeb1" />
 					<set-variable value="Test2" doc:name="VariableTwo: Test2" doc:id="22f0d8fc-978e-4985-a41b-4bfdcace5be1" variableName="VariableTwo" />
-					<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="4e176c6d-4d55-45ad-b28e-65fedd52be1b" message="Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]." />
+					<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="4e176c6d-4d55-45ad-b28e-65fedd52be1b" message="BATCH WITH FILTER LAST STEP: Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]." />
 				</batch:step>
 			</batch:process-records>
 			<batch:on-complete >
-				<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="070d4d3c-4039-405a-938b-c04551664486" message="Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]." />
+				<ee:transform doc:name="Java to JSON" doc:id="e0b7c5b1-eb82-47b3-946e-5dc27fd3620b">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="070d4d3c-4039-405a-938b-c04551664486" message="BATCH WITH FILTER ON COMPLETE: Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]." />
 			</batch:on-complete>
 		</batch:job>
-		<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="1426eb95-5d89-4ff2-90b0-a1477c0aa852" message="Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]." />
+		<ee:transform doc:name="Java to JSON" doc:id="04bac5e7-c0df-4e31-ba35-72185f67e8b2">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Payload, VariableOne, VariableTwo Values" doc:id="1426eb95-5d89-4ff2-90b0-a1477c0aa852" message="BATCH WITH FILTER END OF FLOW: Payload: #[payload] VariableOne:#[vars.VariableOne]  VariableTwo:#[vars.VariableTwo]." />
 	</flow>
 </mule>

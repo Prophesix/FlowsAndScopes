@@ -6,7 +6,7 @@
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
 	<flow name="DataWeave2.0" doc:id="22474ca9-e838-44b5-b026-a21b5ba0f153" >
-		<http:listener doc:name="Listener" doc:id="95a158ee-9e67-4ec3-95e7-a1e768511a35" config-ref="HTTP_Listener_Endpoint" path="/DW2"/>
+		<http:listener doc:name="Listener" doc:id="95a158ee-9e67-4ec3-95e7-a1e768511a35" config-ref="DEFAULT_HTTP_Listener_Endpoint" path="/DW2"/>
 		<logger level="INFO" doc:name="DW2.0 Started" doc:id="df9ebd23-9069-4590-a0d0-72db7238fd56" message="DataWeave2.0 Starting: Getting current time..."/>
 		<ee:transform doc:name="Build Time Payload" doc:id="2a198ee7-ae3a-462d-870b-ef3c0ec4bbad">
 			<ee:message>

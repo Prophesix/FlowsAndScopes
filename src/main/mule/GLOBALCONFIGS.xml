@@ -5,7 +5,7 @@
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd">
-	<http:listener-config name="HTTP_Listener_Endpoint" doc:name="HTTP Listener config" doc:id="6f520396-2f5c-4011-91b8-3a3bd3333d07" basePath="/*" >
+	<http:listener-config name="DEFAULT_HTTP_Listener_Endpoint" doc:name="HTTP Listener config" doc:id="6f520396-2f5c-4011-91b8-3a3bd3333d07">
 		<http:listener-connection host="0.0.0.0" port="8081" />
 	</http:listener-config>
 	<vm:config name="VM_Config" doc:name="VM Config" doc:id="b4952af5-4fa2-4b21-85b8-164f0cad030d">
@@ -15,11 +15,14 @@ http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/cu
 			<vm:queue queueName="QueueTwoPersistant" queueType="PERSISTENT" />
 		</vm:queues>
 	</vm:config>
-	<http:request-config name="Internal_HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="49822184-fb6b-46f2-ab57-2ae8a681e40d" basePath="/Internal" >
-		<http:request-connection host="localhost" port="8081" />
+	<http:request-config name="Internal_HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="49822184-fb6b-46f2-ab57-2ae8a681e40d">
+		<http:request-connection host="localhost" port="8082" />
 	</http:request-config>
 	<http:request-config name="DARKSKYAPI_Request_configuration" doc:name="HTTP Request configuration" doc:id="81f40983-d54c-4f96-9f85-b3cba8689305" basePath="/forecast/ed21a455e1e80b8936a6867b2219b78f/" >
-		<http:request-connection host="https://api.darksky.net" />
+		<http:request-connection host="api.darksky.net" protocol="HTTPS"/>
 	</http:request-config>
 	<configuration-properties doc:name="Configuration properties" doc:id="5dd8dc16-117f-4162-a9f4-8d6428452a47" file="local.properties" />
+	<http:listener-config name="INTERNAL_HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="8058c599-079a-48d0-addf-68e877d31655" >
+		<http:listener-connection host="0.0.0.0" port="8082" />
+	</http:listener-config>
 </mule>
