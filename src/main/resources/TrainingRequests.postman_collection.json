@@ -1,0 +1,521 @@
+{
+	"info": {
+		"_postman_id": "50bec2c3-59e5-4419-a9ba-1b361c692071",
+		"name": "Training",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Lesson 10",
+			"item": [
+				{
+					"name": "destination FOO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/flights?code=FOO",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"flights"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "FOO"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/flights?airline=delta&code=PDX",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"flights"
+							],
+							"query": [
+								{
+									"key": "airline",
+									"value": "delta"
+								},
+								{
+									"key": "code",
+									"value": "PDX"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid request to american",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/flights?airline=american&code=PDX",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"flights"
+							],
+							"query": [
+								{
+									"key": "airline",
+									"value": "american"
+								},
+								{
+									"key": "code",
+									"value": "PDX"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "CSV Project",
+			"item": [
+				{
+					"name": "GenerateData (CSV Project)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "fileName",
+								"value": "blah",
+								"type": "text"
+							},
+							{
+								"key": "recordCount",
+								"value": "100",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/generate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"generate"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "LocalTraining",
+			"item": [
+				{
+					"name": "DarkSkyAPI",
+					"item": [
+						{
+							"name": "ColoradoWeather",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/DarkSkyCO",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"DarkSkyCO"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "LAWeather",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/DarkSkyLA",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"DarkSkyLA"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "NCWeather",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/DarkSkyNC",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"DarkSkyNC"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "DataWeave",
+					"item": [
+						{
+							"name": "DataWeave2.0",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/DW2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"DW2"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "VM FlowsAndScopes",
+					"item": [
+						{
+							"name": "VMPublish Flow (VMScopesFlow) TRANSIENT Q",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/VMPublish",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"VMPublish"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "VMPublishConsume Flow (VMScopesFlow2) TRANSIENT Q",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/VMPublishConsume",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"VMPublishConsume"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "VMPublish Flow (VMScopesFlowPerst) PERSISTANT Q",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/VMPublishPerst",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"VMPublishPerst"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "VMPublishConsume Flow (VMScopesFlow2Perst) PERSISTANT Q",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/VMPublishConsumePerst",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"VMPublishConsumePerst"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "BatchOperations",
+					"item": [
+						{
+							"name": "BatchFlow",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/Batch",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"Batch"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "BatchFlowWithFilter",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/BatchFilter",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"BatchFilter"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SizedBatchFlow",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/SizedBatch",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"SizedBatch"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SizedBatchFlowWithFilter",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/SizedBatchFilter",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"SizedBatchFilter"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "ForEach Operations",
+					"item": [
+						{
+							"name": "ForEachFlow",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/ForEach",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"ForEach"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ForEachFlow_BatchSizes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/ForEachSized",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"ForEachSized"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "JMSQ Scopes",
+					"item": [],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "HTTPRequest Scopes",
+					"item": [
+						{
+							"name": "HTTPRequestScopesFlow",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/HTTPScopes",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"HTTPScopes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "HTTPRequestScopeFlow (NO INTERNAL CALLS)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/HTTPScope",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"HTTPScope"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Flows",
+					"item": [
+						{
+							"name": "FlowToSubFlow",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/FlowToSubFlow",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"FlowToSubFlow"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"description": "Working on some things locally, This ties to Mule4 \"FlowsandScopes\" Project located here: https://github.com/Prophesix/FlowsAndScopes",
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
