@@ -1,0 +1,21 @@
+{
+  "time": "2003-10-01T23:57:59Z",
+  "summary": "????",
+  "icon": "????",
+  "nearestStormDistance": 2,
+  "nearestStormBearing": 2,
+  "precipIntensity": 2,
+  "precipProbability": 2,
+  "temperature": 2,
+  "apparentTemperature": 2,
+  "dewPoint": 2,
+  "humidity": 2,
+  "pressure": 2,
+  "windSpeed": 2,
+  "windGust": 2,
+  "windBearing": 2,
+  "cloudCover": 2,
+  "uvIndex": 2,
+  "visibility": 2,
+  "ozone": 2
+}

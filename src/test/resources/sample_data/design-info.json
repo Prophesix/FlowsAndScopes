@@ -1,0 +1,13 @@
+{
+  "sampleData": {
+    "047699a4-b97b-496a-bb35-25d10b7cc21d": {
+      "payload": "sample_data/json.json"
+    },
+    "d34cc7e3-f77b-4357-9b62-464ff9acfb2b": {
+      "vars-CurrentlyData": "sample_data/json_2.json",
+      "vars-HourlyData": "sample_data/list_json_1.json",
+      "payload": "sample_data/json_1.json",
+      "vars-MinutelyData": "sample_data/list_json.json"
+    }
+  }
+}

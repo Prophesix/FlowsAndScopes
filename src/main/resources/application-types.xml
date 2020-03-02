@@ -55,24 +55,6 @@ type forecastResponse = {|
 ]]></types:shape>
     </types:type>
   </types:catalog>
-  <types:enrichment select="#fe7a435f-cad0-4a6b-843a-65e912939175">
-    <types:processor-declaration>
-      <types:input-event>
-        <types:message>
-          <types:payload type="forecastResponse"/>
-        </types:message>
-      </types:input-event>
-    </types:processor-declaration>
-  </types:enrichment>
-  <types:enrichment select="#8e1764a2-1224-4f16-af55-be72ca56a911">
-    <types:processor-declaration>
-      <types:input-event>
-        <types:message>
-          <types:payload type="forecastResponse"/>
-        </types:message>
-      </types:input-event>
-    </types:processor-declaration>
-  </types:enrichment>
   <types:enrichment select="#e9b1c826-8346-4056-a9b7-1c6499d0a4d4">
     <types:processor-declaration>
       <types:input-event>
@@ -91,4 +73,7 @@ type forecastResponse = {|
       </types:input-event>
     </types:processor-declaration>
   </types:enrichment>
+  <types:enrichment select="#d34cc7e3-f77b-4357-9b62-464ff9acfb2b"/>
+  <types:enrichment select="#ccb1d59e-60e2-4a2f-8505-d1187cc1af0f"/>
+  <types:enrichment select="#f0c0e6cd-89cf-4d34-a489-9b68f4bade2e"/>
 </types:mule>
