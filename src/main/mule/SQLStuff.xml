@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="SQLSelectReturnType" doc:id="587cc78d-ed6b-4687-980d-2a6c3d10ad82" >
+		<http:listener doc:name="Listener" doc:id="977a7c07-fa11-4925-adb8-18e1b3d349d1" config-ref="DEFAULT_HTTP_Listener_Endpoint" path="/DBReturnType"/>
+		<logger level="INFO" doc:name="Start Flow" doc:id="f477bad0-8780-410f-96fd-4d7664004ab8" message="Begin SQL SELECT Return Type Flow."/>
+		<logger level="INFO" doc:name="CurrentPayloadTypeOne" doc:id="0270df6d-8fc2-4c41-a915-bd5b20bf765f" message="Current type of payload (BEFORE database SELECT): #[typeOf(payload)]" />
+		<db:select doc:name="Select" doc:id="72bb51b6-1e93-42be-bc43-4a69afceb722" config-ref="Database_Config">
+			<db:sql >select * from Testing</db:sql>
+		</db:select>
+		<logger level="INFO" doc:name="CurrentPayloadType" doc:id="a8834baf-9684-40fd-952d-9887595b1e1f" message="Current type of payload (FROM database SELECT): #[typeOf(payload)]"/>
+		<ee:transform doc:name="Transform Message" doc:id="e58ba378-005c-40a6-9162-3450e844b1f7" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End Flow" doc:id="2251f931-e173-4531-9617-73578cb1462e" message="End SQL Return SELECT Type Flow."/>
+	</flow>
+	<flow name="SQLInsertReturnType" doc:id="7ba8360e-76c9-48b4-88d0-fe5237f8483d" >
+		<http:listener doc:name="Listener" doc:id="726bd877-9feb-4e6a-a700-c45f2a0cd3de" config-ref="DEFAULT_HTTP_Listener_Endpoint" path="/DBInsertReturnType" />
+		<logger level="INFO" doc:name="Start Flow" doc:id="0b6f48df-237d-4b1d-b964-97a08153395a" message="Begin SQL INSERT Return Type Flow." />
+		<logger level="INFO" doc:name="CurrentPayloadTypeOne" doc:id="4861d095-464e-4a28-8837-b79e0273ec65" message="Current type of payload (BEFORE database INSERT): #[typeOf(payload)]" />
+		<db:insert doc:name="Insert" doc:id="8cd17022-f0ff-4ced-9ff2-d6851072747f" config-ref="Database_Config">
+			<db:sql >INSERT INTO Testing (name)
+VALUES (name:)</db:sql>
+			<db:input-parameters ><![CDATA[#[{
+	name: "Max"
+}]]]></db:input-parameters>
+		</db:insert>
+		<logger level="INFO" doc:name="CurrentPayloadType" doc:id="2d51cff7-3f56-46d2-99d6-7cbe06c8e0bc" message="Current type of payload (FROM database INSERT): #[typeOf(payload)]" />
+		<ee:transform doc:name="Copy_of_Transform Message" doc:id="0d23e7c8-ccfe-40e4-a897-e126d998fced" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Copy_of_End Flow" doc:id="8d357724-b382-44fc-9e63-5a356302a260" message="End SQL Return INSERT Type Flow." />
+	</flow>
+</mule>

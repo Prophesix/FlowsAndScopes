@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:http="http://www.mulesoft.org/schema/mule/http"
-	xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
-http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd">
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
 	<http:listener-config name="DEFAULT_HTTP_Listener_Endpoint" doc:name="HTTP Listener config" doc:id="6f520396-2f5c-4011-91b8-3a3bd3333d07">
 		<http:listener-connection host="0.0.0.0" port="8081" />
 	</http:listener-config>
@@ -25,4 +26,7 @@ http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/cu
 	<http:listener-config name="INTERNAL_HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="8058c599-079a-48d0-addf-68e877d31655" >
 		<http:listener-connection host="0.0.0.0" port="8082" />
 	</http:listener-config>
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="9e034504-00a2-44eb-8f79-24c85f0b9719" >
+		<db:my-sql-connection host="${database.local.host}" port="${database.local.port}" user="${database.local.username}" password="${database.local.password}" database="${database.local.db}" />
+	</db:config>
 </mule>

@@ -32,4 +32,52 @@ output application/json
 		</ee:transform>
 		<logger level="INFO" doc:name="DW2.0 End" doc:id="f8022ef1-6dee-4883-bfc0-8ee894ca8455" message="DataWeave2.0 End: Current Time: #[payload.timeRaw]"/>
 	</flow>
+	<flow name="DataWeave2.0ModuleOneFlow" doc:id="eab10d7e-b70e-49d3-a11d-c081e3f36924" >
+		<http:listener doc:name="Listener" doc:id="55ccd086-0229-4c19-80dd-65ed93fab43d" path="/DW2ModuleOne" config-ref="DEFAULT_HTTP_Listener_Endpoint"/>
+		<logger level="INFO" doc:name="DW2.0ModuleOne Started" doc:id="7aada290-35f1-499b-8642-9c5edaf62e57" message="DataWeave2.0ModuleOne Starting: ..."/>
+		<ee:transform doc:name="Transform Message" doc:id="47912c5a-521a-419f-80fc-a50bb915f2d2" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+import modules::MyModuleOne
+output application/json
+---
+MyModuleOne::main(payload:{"test" : "testOne"})]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="DW2.0ModuleOne End" doc:id="2b6b8abb-706c-4cab-b203-15497f172fc0" message="DataWeave2.0ModuleOne End."/>
+	</flow>
+	<flow name="DataWeave2.0ModuleTwoFlow" doc:id="300325ed-406f-4eee-b771-8cdeaa7d7a89" >
+		<http:listener doc:name="Listener" doc:id="99b5e66e-89b6-4e12-ba19-beea2eea43f8" config-ref="DEFAULT_HTTP_Listener_Endpoint" path="/DW2ModuleTwo"/>
+		<logger level="INFO" doc:name="DW2.0ModuleTwo Started" doc:id="21f9e1f7-8270-4394-9412-5533e113444f" message="DataWeave2.0ModuleTwo Starting: ..."/>
+		<ee:transform doc:name="Transform Message" doc:id="e05975e8-9ac3-463f-b23e-0556e9e4706b" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+import modules::MyModuleTwo
+output application/json
+---
+MyModuleTwo::myCustomFunc("CUSTOMFUNC") ++ "STUFF"]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="DW2.0ModuleTwo End" doc:id="b8f74c49-5a2e-48ef-ac78-afac926982c3" message="DataWeave2.0ModuleTwo End."/>
+	</flow>
+	<flow name="DataWeave2.0ModuleThreeFlow" doc:id="155121bc-02a6-40a7-9802-56574b0a9ecc" initialState="stopped">
+		<http:listener doc:name="Listener" doc:id="11e935ac-1d98-477d-b62c-506f0952a693" config-ref="DEFAULT_HTTP_Listener_Endpoint" path="/DW2ModuleThree" />
+		<logger level="INFO" doc:name="DW2.0ModuleThree Started" doc:id="e1c8143a-f860-406f-8453-73bf85b17f86" message="DataWeave2.0ModuleThree Starting: ..." />
+		<ee:transform doc:name="Transform Message" doc:id="84f71fab-2fcf-4e32-aa51-3e2859e80187" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+import modules::MyModuleThree
+output application/json
+---
+{
+	/* 	
+ 	* one: MyModuleThree::main("CUSTOMFUNC") ++ "STUFF",
+	* two: MyModuleThree::functionTwo(payload:{"test" : "testOne"})
+	*/
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="DW2.0ModuleThree End" doc:id="c37bb401-814f-46f6-98a9-38aa64fe5a65" message="DataWeave2.0ModuleThree End." />
+	</flow>
 </mule>

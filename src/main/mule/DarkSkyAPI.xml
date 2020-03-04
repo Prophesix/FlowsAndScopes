@@ -130,13 +130,17 @@ payload.daily.data filter (($$ < vars.headerVars.daySize)) map {
 		<ee:transform doc:name="GiveBackFirstOfEachArray" doc:id="d34cc7e3-f77b-4357-9b62-464ff9acfb2b" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
+var offSet = payload.offset
+var currentAPITime = vars.CurrentlyData.time
+var currentLocalTime = currentAPITime + ("PT$(offSet)H" as Period)
+var adjustForTimeZone = ("PT$(offSet)H" as Period)
 output application/json
 ---
 {
 	CurrentSystemTime: now() as DateTime,
-	CurrentTimeFromAPI: vars.CurrentlyData.time,
-	TimeZone: payload.timezone,
-	OffSet: payload.offset,
+	CurrentTimeFromAPI: currentAPITime,
+	CurrentLocalTime: currentLocalTime,
+	TimeZoneOffSet: offSet,
 	Currently:{
 		Summary: vars.CurrentlyData.summary,
 		CurrentTemp: vars.CurrentlyData.temperature,
@@ -148,13 +152,13 @@ output application/json
 	},
 	Minutely: vars.MinutelyData map {
 		Min:$$ + 1,
-		Time: $.time,
+		Time: $.time + adjustForTimeZone,
 		PercipProb: $.precitProbibility,
 		PercipInten: $.precipIntensity
 	},
 	Hourly: vars.HourlyData map{
 		Hour: $$+1,
-		Time: $.time,
+		Time: $.time + adjustForTimeZone,
 		Summary: $.summary,
 		Temp: $.temperature,
 		Humidity: $.humidity,
@@ -164,22 +168,24 @@ output application/json
 	},
 	Daily: vars.DailyData map {
 		Instance: $$+1,
+		Month: $.time.month,
 		DayOfWeek: $.time.dayOfWeek,
-		Time: $.time,
+		DayOfYear: $.time.dayOfYear,
+		Time: $.time + adjustForTimeZone,
 		Summary: $.summary,
-		Sunrise: $.sunriseTime,
-		SunSet: $.sunsetTime,
+		Sunrise: $.sunriseTime + adjustForTimeZone,
+		SunSet: $.sunsetTime + adjustForTimeZone,
 		MoonPhase: $.moonPhase,
 		TempLow: $.temperatureLow,
-		TempLowTime: $.temperatureLowTime,
+		TempLowTime: $.temperatureLowTime + adjustForTimeZone,
 		TempHigh: $.temperatureHigh,
-		TempHighTime: $.temperatureHighTime,
+		TempHighTime: $.temperatureHighTime + adjustForTimeZone,
 		Humidity: $.humidity,
 		WindSpeed: $.windSpeed,
 		WindDirection: $.windBearing,
 		PrecipProb: $.precipProbability
 	},
-	TimeData: {
+	SystemTimeData: {
 		Day: now().day,
 		DayOfWeek: now().dayOfWeek,
 		DayOfYear: now().dayOfYear,
@@ -341,13 +347,17 @@ payload.daily.data filter (($$ < vars.headerVars.daySize)) map {
 		<ee:transform doc:name="GiveBackFirstOfEachArray" doc:id="ccb1d59e-60e2-4a2f-8505-d1187cc1af0f">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
+var offSet = payload.offset
+var currentAPITime = vars.CurrentlyData.time
+var currentLocalTime = currentAPITime + ("PT$(offSet)H" as Period)
+var adjustForTimeZone = ("PT$(offSet)H" as Period)
 output application/json
 ---
 {
 	CurrentSystemTime: now() as DateTime,
-	CurrentTimeFromAPI: vars.CurrentlyData.time,
-	TimeZone: payload.timezone,
-	OffSet: payload.offset,
+	CurrentTimeFromAPI: currentAPITime,
+	CurrentLocalTime: currentLocalTime,
+	TimeZoneOffSet: offSet,
 	Currently:{
 		Summary: vars.CurrentlyData.summary,
 		CurrentTemp: vars.CurrentlyData.temperature,
@@ -359,13 +369,13 @@ output application/json
 	},
 	Minutely: vars.MinutelyData map {
 		Min:$$ + 1,
-		Time: $.time,
+		Time: $.time + adjustForTimeZone,
 		PercipProb: $.precitProbibility,
 		PercipInten: $.precipIntensity
 	},
 	Hourly: vars.HourlyData map{
 		Hour: $$+1,
-		Time: $.time,
+		Time: $.time + adjustForTimeZone,
 		Summary: $.summary,
 		Temp: $.temperature,
 		Humidity: $.humidity,
@@ -375,22 +385,24 @@ output application/json
 	},
 	Daily: vars.DailyData map {
 		Instance: $$+1,
+		Month: $.time.month,
 		DayOfWeek: $.time.dayOfWeek,
-		Time: $.time,
+		DayOfYear: $.time.dayOfYear,
+		Time: $.time + adjustForTimeZone,
 		Summary: $.summary,
-		Sunrise: $.sunriseTime,
-		SunSet: $.sunsetTime,
+		Sunrise: $.sunriseTime + adjustForTimeZone,
+		SunSet: $.sunsetTime + adjustForTimeZone,
 		MoonPhase: $.moonPhase,
 		TempLow: $.temperatureLow,
-		TempLowTime: $.temperatureLowTime,
+		TempLowTime: $.temperatureLowTime + adjustForTimeZone,
 		TempHigh: $.temperatureHigh,
-		TempHighTime: $.temperatureHighTime,
+		TempHighTime: $.temperatureHighTime + adjustForTimeZone,
 		Humidity: $.humidity,
 		WindSpeed: $.windSpeed,
 		WindDirection: $.windBearing,
 		PrecipProb: $.precipProbability
 	},
-	TimeData: {
+	SystemTimeData: {
 		Day: now().day,
 		DayOfWeek: now().dayOfWeek,
 		DayOfYear: now().dayOfYear,
@@ -543,13 +555,17 @@ payload.daily.data filter (($$ < vars.headerVars.daySize)) map {
 		<ee:transform doc:name="GiveBackFirstOfEachArray" doc:id="f0c0e6cd-89cf-4d34-a489-9b68f4bade2e">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
+var offSet = payload.offset
+var currentAPITime = vars.CurrentlyData.time
+var currentLocalTime = currentAPITime + ("PT$(offSet)H" as Period)
+var adjustForTimeZone = ("PT$(offSet)H" as Period)
 output application/json
 ---
 {
 	CurrentSystemTime: now() as DateTime,
-	CurrentTimeFromAPI: vars.CurrentlyData.time,
-	TimeZone: payload.timezone,
-	OffSet: payload.offset,
+	CurrentTimeFromAPI: currentAPITime,
+	CurrentLocalTime: currentLocalTime,
+	TimeZoneOffSet: offSet,
 	Currently:{
 		Summary: vars.CurrentlyData.summary,
 		CurrentTemp: vars.CurrentlyData.temperature,
@@ -561,13 +577,13 @@ output application/json
 	},
 	Minutely: vars.MinutelyData map {
 		Min:$$ + 1,
-		Time: $.time,
+		Time: $.time + adjustForTimeZone,
 		PercipProb: $.precitProbibility,
 		PercipInten: $.precipIntensity
 	},
 	Hourly: vars.HourlyData map{
 		Hour: $$+1,
-		Time: $.time,
+		Time: $.time + adjustForTimeZone,
 		Summary: $.summary,
 		Temp: $.temperature,
 		Humidity: $.humidity,
@@ -577,22 +593,24 @@ output application/json
 	},
 	Daily: vars.DailyData map {
 		Instance: $$+1,
+		Month: $.time.month,
 		DayOfWeek: $.time.dayOfWeek,
-		Time: $.time,
+		DayOfYear: $.time.dayOfYear,
+		Time: $.time + adjustForTimeZone,
 		Summary: $.summary,
-		Sunrise: $.sunriseTime,
-		SunSet: $.sunsetTime,
+		Sunrise: $.sunriseTime + adjustForTimeZone,
+		SunSet: $.sunsetTime + adjustForTimeZone,
 		MoonPhase: $.moonPhase,
 		TempLow: $.temperatureLow,
-		TempLowTime: $.temperatureLowTime,
+		TempLowTime: $.temperatureLowTime + adjustForTimeZone,
 		TempHigh: $.temperatureHigh,
-		TempHighTime: $.temperatureHighTime,
+		TempHighTime: $.temperatureHighTime + adjustForTimeZone,
 		Humidity: $.humidity,
 		WindSpeed: $.windSpeed,
 		WindDirection: $.windBearing,
 		PrecipProb: $.precipProbability
 	},
-	TimeData: {
+	SystemTimeData: {
 		Day: now().day,
 		DayOfWeek: now().dayOfWeek,
 		DayOfYear: now().dayOfYear,
