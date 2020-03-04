@@ -1,138 +1,12 @@
 {
 	"info": {
 		"_postman_id": "50bec2c3-59e5-4419-a9ba-1b361c692071",
-		"name": "Training",
+		"name": "LocalTraining",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Lesson 10",
-			"item": [
-				{
-					"name": "destination FOO",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8081/flights?code=FOO",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"flights"
-							],
-							"query": [
-								{
-									"key": "code",
-									"value": "FOO"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Valid request",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8081/flights?airline=delta&code=PDX",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"flights"
-							],
-							"query": [
-								{
-									"key": "airline",
-									"value": "delta"
-								},
-								{
-									"key": "code",
-									"value": "PDX"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Valid request to american",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8081/flights?airline=american&code=PDX",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"flights"
-							],
-							"query": [
-								{
-									"key": "airline",
-									"value": "american"
-								},
-								{
-									"key": "code",
-									"value": "PDX"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "CSV Project",
-			"item": [
-				{
-					"name": "GenerateData (CSV Project)",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "fileName",
-								"value": "blah",
-								"type": "text"
-							},
-							{
-								"key": "recordCount",
-								"value": "100",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:8081/api/generate",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"api",
-								"generate"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "LocalTraining",
+			"name": "LocalTrainingMuleSoft",
 			"item": [
 				{
 					"name": "DarkSkyAPI",
@@ -141,7 +15,23 @@
 							"name": "ColoradoWeather",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "DaySize",
+										"value": "3",
+										"type": "text"
+									},
+									{
+										"key": "MinuteSize",
+										"value": "0",
+										"type": "text"
+									},
+									{
+										"key": "HourSize",
+										"value": "8",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "http://localhost:8081/DarkSkyCO",
 									"protocol": "http",
@@ -160,7 +50,23 @@
 							"name": "LAWeather",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "DaySize",
+										"value": "7",
+										"type": "text"
+									},
+									{
+										"key": "MinuteSize",
+										"value": "0",
+										"type": "text"
+									},
+									{
+										"key": "HourSize",
+										"value": "8",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "http://localhost:8081/DarkSkyLA",
 									"protocol": "http",
@@ -179,7 +85,23 @@
 							"name": "NCWeather",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "DaySize",
+										"value": "7",
+										"type": "text"
+									},
+									{
+										"key": "MinuteSize",
+										"value": "0",
+										"type": "text"
+									},
+									{
+										"key": "HourSize",
+										"value": "8",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "http://localhost:8081/DarkSkyNC",
 									"protocol": "http",
@@ -215,6 +137,63 @@
 									"port": "8081",
 									"path": [
 										"DW2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DataWeave2.0ModuleOneFlow",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/DW2ModuleOne",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"DW2ModuleOne"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DataWeave2.0ModuleTwoFlow",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/DW2ModuleTwo",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"DW2ModuleTwo"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DataWeave2.0ModuleThreeFlow",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/DW2ModuleThree",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"DW2ModuleThree"
 									]
 								}
 							},
@@ -511,9 +490,76 @@
 					],
 					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
+				},
+				{
+					"name": "DatabaseFlows",
+					"item": [
+						{
+							"name": "DBReturnSELECTType",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/DBReturnType",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"DBReturnType"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DBReturnINSERTType",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/DBInsertReturnType",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"DBInsertReturnType"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
 			],
 			"description": "Working on some things locally, This ties to Mule4 \"FlowsandScopes\" Project located here: https://github.com/Prophesix/FlowsAndScopes",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3fc1b4e8-bf50-4b6f-b99e-938f45190b82",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ed4731af-1cab-4238-af0f-036675c74671",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
 			"protocolProfileBehavior": {}
 		}
 	],
